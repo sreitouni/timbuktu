@@ -1,0 +1,22 @@
+{% extends 'userbase.html' %}
+
+{% block title %}Admin Home{% endblock %}
+
+{# Set the active page to be highlighted in the navigation bar. #}
+{% set active_page = 'home' %}
+
+{% block content %}
+<section class="container py-5 text-center">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <h1>Admin Home Page</h1>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <a href='/my_journeys' class="btn btn-primary"> My Journeys</a>
+            </div>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <a href='/manage_users' class="btn btn-primary"> Managing Users</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

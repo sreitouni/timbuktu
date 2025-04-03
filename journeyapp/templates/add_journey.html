@@ -1,0 +1,36 @@
+{% extends 'userbase.html' %}
+{% block title %}Add a New Journey{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2>ADD A NEW JOURNEY</h2>
+
+    <!-- flash Messages -->
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    <form action="{{ url_for('add_journey') }}" method="post" novalidate>
+        <div class="mb-3">
+            <label for="journey_title" class="form-label">Journey Title</label>
+            <input type="text" class="form-control {% if journey_title_error %} is-invalid{% endif %}" id="journey_title" name="journey_title" value="{{ journey_title }}" autofocus required>
+            <div class="invalid-feedback">{{ journey_title_error }}</div>
+        </div>
+        <!-- add start date-->
+        <div class="mb-3">
+            <label for="journey_start_date" class="form-label">Start Date</label>
+            <input type="date" class="form-control {% if journey_start_date_error %} is-invalid{% endif %}" id="journey_start_date" name="journey_start_date" value="{{ journey_start_date }}"  required>
+            <div class="invalid-feedback">{{ journey_start_date_error }}</div>
+        </div>
+        <div class="mb-3">
+            <label for="journey_description" class="form-label">Journey Description</label>
+            <textarea class="form-control {% if journey_description_error %} is-invalid{% endif %}" id="journey_description" name="journey_description" required>{{ journey_description }}</textarea>
+            <div class="invalid-feedback">{{ journey_description_error }}</div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href='/my_journeys' class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

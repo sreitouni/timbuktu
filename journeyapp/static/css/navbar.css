@@ -1,0 +1,60 @@
+/* Icon Basics */
+.icon {
+    width: 40px; /* Match your icon size */
+    height: 40px;
+    object-fit: contain; /* Keep aspect ratio */
+  }
+
+  /* Default State: Show gray, hide blue */
+  .icon-blue {
+    display: none;
+  }
+  
+  /* Active State: Show blue, hide gray */
+  .sidebar-icon.active .icon-gray {
+    display: none;
+  }
+  .sidebar-icon.active .icon-blue {
+    display: block;
+  }
+  
+  .sidebar-icon {
+      position: relative; /* Needed for absolute positioning of label */
+      display: flex;
+      align-items: center; /* Vertically centers children */
+      padding: 3px;
+      transition: all 0.6s ease;
+      cursor: pointer;
+    
+  }
+  /* Hover Efficts */
+  .sidebar-icon:hover {
+      transform: translateX(4px); /* Y(-..px) for up, Y(..px) for down */
+      opacity: 0.9;
+  }
+
+
+    .sidebar-icon:hover .icon {
+        transform: scale(1.10); /* Multipli size by scale factor */
+        transition: transform 0.3s ease-out; /* Only this line added */
+    }
+
+/* Label Animation */
+.icon-label {
+  position: absolute;
+  left: 100%; /* Position label to the right of the icon */
+  white-space: nowrap;
+  margin-left: 6px;
+  /* background: yellow; Debugging highlight */
+  opacity: 0; /* Starts invisible */
+  transition: opacity 0.2s ease; /* Fade-in animation */
+  font-weight: 500;
+  font-size: 0.8rem; 
+  color: #8b8b90;
+  transform: translateX(-5px); /* Start slightly left */
+  transition: opacity 0.6s ease, transform 0.9s ease-out; /* Animate both */
+}
+.sidebar-icon:hover .icon-label {
+  opacity: 1; /* Label, become visibe on hover */
+
+}

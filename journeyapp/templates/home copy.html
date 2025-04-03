@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timbuktu Home Page</title>
+    <link rel="stylesheet"  href="{{ url_for ('static', filename='global.css')}}">
+</head>
+
+
+
+<div class="nav-container" style="display:flex; justify-content:space-between; align-items:center;padding-left:40px; padding-right:60px">
+    <div>
+        <span style="font-size: 40px; font-weight:800; color:var(--berkeley-blue);">Timbuktu</span>
+        <img src="static/logo.png" alt="Web_logo" style="height: auto ;width: auto;vertical-align: middle;">
+    </div>
+    <div class="nav-buttons">
+        <a href="/signup" class="btn-primary" style="text-align: center;padding-right: 40px;padding-left: 40px">Sign up</a>
+        <a href="/login" class="btn-outline"style="text-align: center;padding-right: 40px;padding-left: 40px">Log in</a>
+    </div>
+</div>
+
+<div class="content-container" style="display:flex; justify-content:space-between; align-items:center;">
+    <div class="left-content" style="text-align: center; width: 50%; padding-left: 40px;">
+        <h1 style="text-align: center;">Share Your Travel Stroties</h1>
+        <p>Register now and share journeys</p>
+        <a href="/signup" class="btn-primary" style="text-align: center;padding-right: 80px;padding-left: 80px;font-size: 40px;font-weight: 700;">Sign up for FREE</a>
+    </div>
+    <div class="right-content" style="display: flex;flex-direction: column;gap: 10px;width: 30%; padding-right: 50px;">
+        <img src="static/italy.jpg" alt="italy" style="height: 200px;width:400px; vertical-align: top;">
+        <img src="static/japan.jpg" alt="japan" style="height: 200px;width: 400px; vertical-align: middle;">
+        <img src="static/norway.jpeg" alt="norway" style="height: 200px;width: 400px; vertical-align: bottom;">
+    </div>
+</div>
+
+<footer> 
+    <p class="footer">Copyright © 2025 </p>
+</footer>
+</html>

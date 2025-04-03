@@ -1,0 +1,134 @@
+{% extends 'userbase.html' %}
+
+{% block title %}User Profile{% endblock %}
+
+{% set active_page = 'profile' %}
+
+{% block content %}
+<h3 class="text-lg-start ms-lg-3">Profile</h3>
+
+<section class="container py-3 text-start">
+    <div class="row justify-content-top">
+        <div class="col-lg-8">
+            <p class="lead text-pale"> Hi <strong class="fw-bold text-dark-forest">{{ session['username'] }}</strong>, 
+                <br> Here's everything we know about you.
+                <br> Please update your profile by directly editing in the input box.
+            </p>
+        </div>
+    </div>
+
+    <form action="{{ url_for('profile') }}" method="POST" enctype="multipart/form-data">
+        <div class="row g-lg-0">
+            {% if update_successful %}
+            <!-- <div class="bg-success text-white rounded text-center mt-3 col-12 col-lg-6 position-relative">
+                <div class="p-2">Profile updated successfully!</div>
+                <button class="btn-close-white position-absolute top-0 end-0 m-1" 
+                        onclick="this.parentElement.remove()" 
+                        aria-label="Close"></button>
+            </div> -->
+            <div class="bg-success text-white rounded text-center mt-3 col-12 col-lg-6 position-relative">
+                <div class="p-2 pe-4">Profile updated successfully!</div> <!-- Position the X ...px from the right/top edge-->
+                <button style="background: none; border: none; color: white; font-size: 1.1rem; right: 8px; top: 6px;" 
+                        class="position-absolute" 
+                        onclick="this.parentElement.remove()"
+                        aria-label="Close">
+                    ✕  <!-- X character -->
+                </button>
+            </div>
+                {% endif %}
+            <!-- LEFT COLUMN - Form Fields -->
+            <div class="col-lg-8 order-lg-1 order-2">
+
+
+                <div class="row my-3">
+                    <div class="col-lg-8">
+                        <label for="username" class="form-label">Username</label> 
+                        <input type="text" class="form-control{% if new_username_error %} is-invalid{% endif %}" id="username" name="username" value="{{ profile.username }}" required>
+                        <div class="invalid-feedback">{{ new_username_error }}</div>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-lg-8">
+                        <label for="useremail" class="form-label">Email</label>
+                        <input type="text" class="form-control {% if new_email_error %} is-invalid{% endif %}" id="useremail" name="useremail" value="{{ profile.email }}" required>
+                        <input type="hidden" name="email_old" value="{{ profile.email }}">
+                        <div class="invalid-feedback">{{ new_email_error }}</div>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-lg-8">
+                         <label for="first_name" class="form-label">First Name</label>
+                        <input type="text" class="form-control{% if new_first_name_error %} is-invalid{% endif %}" id="first_name" name="first_name" value="{{ profile. first_name}}" required>
+                        <div class="invalid-feedback">{{ new_first_name_error }}</div>
+                    </div>
+                </div>
+        
+                <div class="row mb-3">
+                    <div class="col-lg-8">
+                        <label for="last_name" class="form-label">Last Name</label>
+                        <input type="text" class="form-control{% if new_last_name_error %} is-invalid{% endif %}" id="last_name" name="last_name" value="{{ profile. last_name}}" required>
+                        <div class="invalid-feedback">{{ new_last_name_error }}</div>
+                    </div>
+                </div>
+        
+                <div class="row mb-3">
+                    <div class="col-lg-8">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control {% if new_location_error %} is-invalid{% endif %}" id="location" name="location" value="{{ profile. location}}"required>
+                        <div class="invalid-feedback">{{ new_location_error }}</div>
+                    </div>
+                </div>
+        
+                <!-- 
+                <div class="row mb-3">
+                    <div class="col-lg-8">
+                        <label for="role" class="form-label">Role</label>
+                        <input type="text" class="form-control" id="role" name="role" value="{{ profile. role}}" disabled>
+                    </div>
+                </div>   
+                -->
+
+                 <!-- Buttons -->
+                <div class="row justify-content-center justify-content-md-start mt-4">
+                    <div class="col-lg-8">
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary text-white ">Update Profile</button>
+                            <a href="{{ url_for('change_password') }}" class="btn btn-outline-secondary">
+                                Change Password
+                            </a>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+
+            <!-- RIGHT COLUMN - Profile Image  -->
+            <div class="col-lg-4 order-lg-2 order-1">
+                <div class="my-3 text-center">
+                    <label for="profile_image" class="form-label"></label>
+                    {% if profile.profile_image %}
+                        <img src="{{ url_for('static', filename=profile.profile_image) }}" 
+                             alt="Profile Image" 
+                             class="img-fluid mb-3 rounded"
+                             style="max-width: 60%; height: auto;">
+                        <div class="mb-3">
+                            <a class="btn btn-danger" href="{{url_for('drop_profile_image')}}">
+                                Delete Profile Image
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="mb-3 text-muted">
+                            <i class="fas fa-user fa-3x d-block mb-2"></i>
+                            <p class="label-captions">No profile image added</p>
+                        </div>
+                    {% endif %}
+                    <input type="file" class="form-control" id="profile_image" name="profile_image" accept="image/*">
+                </div>
+            </div>
+        </div>
+       
+    </form>
+</section>
+{% endblock %}

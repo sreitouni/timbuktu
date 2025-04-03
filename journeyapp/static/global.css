@@ -1,0 +1,253 @@
+/* This is the css for the whole web app */ 
+
+/* import the Google font*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Set the color for the fonts*/
+:root {
+    --berkeley-blue: #062c63ff;
+    --mali-sky: #94AEC9;
+    --lion: #b48a57;
+    --seashell: #fef4ecff;
+    --bittersweet-shimmer: #bc5552ff;
+    --mail-green: #609491ff;
+    --taupe-gray: #8b8b90ff;
+  }
+
+/*set fonts color and style */
+body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  font-weight: 400; 
+  color: var(--berkeley-blue);
+  background-color: var(--seashell);
+  margin: 0;
+  padding: 0;}
+
+h1 {
+    font-size: 40px;
+  font-weight: 800;
+  color: var(--berkeley-blue);
+  margin-bottom: 16px;}
+
+h2 {
+    font-size: 36px;
+    font-weight: 800; /* Extra Bold */
+    color: var(--berkeley-blue);
+    margin-bottom: 14px;}
+
+.blue-text {
+  color: var(--berkeley-blue) !important;
+}
+
+.btn-primary {
+    background-color: var(--berkeley-blue);
+    color: #ffffff;
+    padding: 10px 22px;
+    font-size: 14px;
+    border-radius: 6px;
+    min-width: 120px;
+    max-height: 35px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+  
+  }
+
+.btn-primary:hover {
+  background-color: var(--berkeley-blue);
+  box-shadow: 4px 4px 12px -3px var(--berkeley-blue);
+  color: var(--berkeley-blue); 
+  /* border: 2px solid var(--berkeley-blue); */
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--berkeley-blue);
+  border: 2px solid var(--berkeley-blue);
+  padding: 10px 22px;
+  font-size: 14px;
+  border-radius: 6px;
+  min-width: 120px;
+  max-height: 35px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+}
+
+.btn-outline:hover {
+  background-color: var(--berkeley-blue);
+  box-shadow: 4px 4px 12px -3px var(--berkeley-blue);
+  color: #ffffff;}
+
+
+  .btn-outline-secondary {
+    background-color: transparent;
+    color: var(-taupe-gray);
+    border: 2px solid var(-taupe-gray);
+    padding: 10px 22px;
+    font-size: 14px;
+    border-radius: 6px;
+    min-width: 120px;
+    max-height: 35px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+  }
+  
+  .btn-outline-secondary:hover {
+    background-color: var(-taupe-gray);
+    box-shadow: 4px 4px 12px -3px var(-taupe-graye);
+    color: #ffffff;}
+
+  .btn-danger {
+    background-color: var( --bittersweet-shimmer) !important;
+    color: #ffffff;
+    padding: 10px 22px;
+    font-size: 14px;
+    border-radius: 6px;
+    min-width: 120px;
+    max-height: 35px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+  
+  }
+
+.btn-danger:hover {
+  background-color: var( --bittersweet-shimmer);
+  box-shadow: 4px 4px 12px -3px var( --bittersweet-shimmer);
+  /* border: 2px solid var(--berkeley-blue); */
+}
+
+footer {
+    font-size: 12px;
+    text-align: center;
+    color:var(--taupe-gray);
+    }
+
+
+    /* Override Bootstrap navbar annoying styles, 
+which were causing the unwanted dark marks. */
+
+/* Toggler button styles */
+.navbar-toggler {
+  border: none !important; /* Remove border around toggler */  
+}
+
+/* Toggler icon styles */
+.navbar-toggler-icon {
+  background: transparent !important; /* Remove dark marks */
+}
+
+/* Apply style to other big primary buttons */
+.primary-btn-big {
+  /* min-width: 240px; */
+  border-radius: 6px;
+  border: var(--berkeley-blue);
+  background: var(--berkeley-blue);
+  width: 100%; /* Stretch to fill the container */
+  height: 40px;
+}
+
+.primary-btn-big:hover {
+  background-color: var(--berkeley-blue) !important;
+  box-shadow: 4px 4px 12px -3px var(--berkeley-blue); /* Darker shade of #93A6CD */
+}
+
+.primary-btn-big:active {
+  background-color: var(--berkeley-blue) !important;
+  border: var(--berkeley-blue) !important;
+}
+
+.border-primary {
+    border-color: var(--berkeley-blue) !important; 
+  }
+
+  /* Specific HR styling */
+hr.border-primary {
+  border-color: var(--berkeley-blue) !important;
+  opacity: 1;
+}
+
+.form-label {
+    font-size: small;
+    text-align: left !important;
+    display: block; /* Stretche the label across the entire space so that it can align left */
+    margin-bottom: 0.25rem; /* Reduce the space between label and input field */
+}
+
+.form-field {
+  background-color: var(--seashell);
+  border: 2px solid var(--berkeley-blue);
+  border-radius: 6px;
+  box-shadow: 0px 4px 12px 0px rgba(211, 204, 183, 0.25) inset; /* Apply inset shadow using settings exported from Figma */
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%; /* Stretch to fill the container */
+  height: 40px;
+}
+
+.label-captions {
+  font-size: small;
+  text-align: left;
+  margin-top: 0.2rem;
+  margin-left: 0.6rem;
+}
+
+.label-sub-captions {
+  font-size: x-small;
+  text-align: left;
+  margin-top: 0.1rem;
+  margin-left: 0.6rem;
+}
+
+.text-link {
+  color: #2A5CAA;
+}
+
+.text-link:hover {
+  color: #A7B8D6; /* Lighter shade of #93A6CD*/
+}
+
+/* Bacground Focus */
+
+.bg-focus {
+  background-color: var( --taupe-gray);
+
+}
+
+.bg-primary {
+  background-color: var( --berkeley-blue) !important;
+}
+
+.bg-danger {
+  background-color: var( --bittersweet-shimmer) !important;
+}
+
+.bg-success {
+  background-color: var( --mail-green) !important;
+}
+
+.nav-link.active {
+  margin-block: 3px;
+}
+
+.nav-link i {
+  color: var(--taupe-gray);
+}
+
+.nav-link.active i {
+  color: var(--mali-sky);
+}
+
+.nav-link:hover i,
+.nav-link:focus i {
+    color: var(--berkeley-blue);
+}
+
+/* Special hover ONLY for logout (door icon) */
+.nav-link:hover .fa-door-open,
+.nav-link:focus .fa-door-open {
+    color: var(--bittersweet-shimmer) !important;
+}

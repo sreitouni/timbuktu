@@ -1,0 +1,99 @@
+{% extends "base_public.html" %}
+
+{% block title %} Timbuktu - Signup {% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row align-items-center justify-content-center"> <!-- wh -->
+      <div class="col-12 col-md-10 col-xl-8">
+              <!-- Close X button -->
+              <div class="d-flex justify-content-end pt-2 pe-3">
+                <a href="/">
+                    <img class="close-button" src="/static/images/close.png" alt="close button" width="30em"> 
+                </a>
+              </div>
+
+            <!-- Title -->
+            <h1 class="p-3 m-0 text-start">Sign up</h1>
+
+            <!-- Form container-->
+            <div class="container">
+              <form class="p-1" action="{{ url_for('signup') }}" method="post"novalidate enctype="multipart/form-data">
+                <div class="mb-3">
+                  <label for="username" class="form-label ms-1">Username<span class="text-danger">&nbsp;*</span></label>
+                  <input type="text" class="form-field {% if username_error %} is-invalid{% endif %}" id="username" name="username" placeholder="" maxlength=20 value="{{ username }}" required>
+
+                  <div id="usernameHelp" class="label-captions ">Your username must:</div>
+                  <div id="usernameHelpDescription" class="label-sub-captions ">
+      
+                      -&nbsp; Be between 2 and 20 characters long<br>
+                      -&nbsp; Contain only letters and numbers<br>
+                      -&nbsp; Have no spaces or special characters<br>
+
+                  </div>
+
+                  <div class="invalid-feedback">{{ username_error }}</div>
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label ms-1">Email Address<span class="text-danger">&nbsp;*</span></label>
+                  <input type="text" class="form-field {% if email_error %} is-invalid{% endif %}" id="email" name="email" placeholder="" maxlength=320 value="{{ email }}" required>
+                  <div class="invalid-feedback">{{ email_error }}</div>
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label ms-1">Password<span class="text-danger">&nbsp;*</span></label>
+                  <input type="password" class="form-field {% if password_error %} is-invalid{% endif %}" id="password" name="password" placeholder="" value="{{ password }}" aria-describedby="passwordHelp" required>
+                  <div class="invalid-feedback">{{password_error}}</div>
+                  <div id="pwdHelp" class="label-captions ">Your password must have:</div>
+                            <div id="pwdHelpDescription" class="label-sub-captions ">
+                
+                                -&nbsp; At least 8 characters<br>
+                                -&nbsp; 1 upper case letter<br>
+                                -&nbsp; 1 lower case letter<br>
+                                -&nbsp; 1 number<br>
+                                -&nbsp; 1 special character (e.g., !, @, #, etc.)
+                                -&nbsp; No spaces<br>
+                    
+                            </div>
+                </div>
+                <div class="mb-3">
+                  <label for="confirm_password" class="form-label ms-1">Confirm password<span class="text-danger">&nbsp;*</span></label>
+                  <input type="password" class="form-field {% if confirm_password_error %} is-invalid{% endif %}" id="confirm_password" name="confirm_password" placeholder="" required>
+                  <div class="invalid-feedback">{{ confirm_password_error }}</div>
+                </div>
+                <div class="mb-3">
+                  <label for="first_name" class="form-label ms-1">First Name</label>
+                  <input type="text" class="form-field {% if first_name_error %} is-invalid{% endif %}" id="first_name" name="first_name" placeholder="" maxlength=50 value="{{ first_name }}" required>
+                  <div class="invalid-feedback">{{ first_name_error }}</div>
+                </div>
+                <div class="mb-3">
+                  <label for="last_name" class="form-label ms-1">Last Name</label>
+                  <input type="text" class="form-field {% if last_name_error %} is-invalid{% endif %}" id="last_name" name="last_name" placeholder="" maxlength=50 value="{{ last_name }}" required>
+                  <div class="invalid-feedback">{{ last_name_error }}</div>
+                </div>
+                <div class="mb-3">
+                  <label for="location" class="form-label ms-1">Location</label>
+                  <input type="text" class="form-field {% if location_error %} is-invalid{% endif %}" id="location" name="location" placeholder="" maxlength=50 value="{{ location }}" required>
+                  <div class="invalid-feedback">{{ location_error }}</div>
+                </div>
+                
+                <!-- Sign up button -->
+                <div class="text-center mt-4 mb-2 d-flex flex-column flex-md-row justify-content-between gap-2">
+                  <button type="submit" class="btn primary-btn-big text-white">Sign up</button>
+                </div>
+              </form>
+             
+          </div>
+          {% if signup_successful %}
+          <div class="bg-success text-white border border-top-0 rounded-bottom text-center">
+              <div class="p-2">You have successfully signed up! <a class="link-light" href="{{ url_for('login') }}">Log in</a></div>
+          </div>
+          {% else %}
+          <div class="d-flex ms-2">
+            <p class="label-captions">Already have an account?</p>
+            <a href="{{ url_for('login') }}" class="label-captions text-link" >Log in</a>
+          </div>
+          {% endif %}            
+        </div>
+      </div>
+    </div>
+{% endblock %}

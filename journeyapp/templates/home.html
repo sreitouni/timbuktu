@@ -1,0 +1,33 @@
+{% extends "base_public.html" %}
+
+{% block title %}Timbuktu - Travel Journal{% endblock %}
+
+{% block content %}
+
+<!-- Add Google Fonts for handwriting -->
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/carousel.css') }}">
+
+<!-- Polaroid-style carousel  -->
+<div class="gallery mt-4">
+  <div class="photo-frame" style="--r: 3deg">
+    <img src="/static/italy.jpg" alt="Italy" class="img-fluid rounded-1">
+    <div class="photo-caption">Italy 2023</div>
+  </div>
+  <div class="photo-frame" style="--r: -2deg">
+    <img src="/static/mali.jpg" alt="Mali" class="img-fluid rounded-1">
+    <div class="photo-caption">Mali 2007</div>
+  </div>
+  <div class="photo-frame" style="--r: 5deg">
+    <img src="/static/norway.jpeg" alt="Norway" class="img-fluid rounded-1">
+    <div class="photo-caption">Norway 2022</div>
+  </div>
+  <div class="photo-frame" style="--r: -3deg">
+    <img src="/static/japan.jpg" alt="Japan" class="img-fluid rounded-1">
+    <div class="photo-caption">Japan 2024</div>
+  </div>
+</div>
+
+{% endblock %}
+
+<!-- Ref.: https://css-tricks.com/css-infinite-slider-flipping-through-polaroid-images/ -->
