@@ -1,5 +1,5 @@
-from journeyapp import app
-from journeyapp import db
+from tapp import app
+from tapp import db
 from flask import redirect, render_template, request, session, url_for,flash
 from flask_bcrypt import Bcrypt
 import re

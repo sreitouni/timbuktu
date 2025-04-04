@@ -2,14 +2,14 @@
 # and handles all the setup for our Flask app.
 # Include all modules that define our Flask route-handling functions.
 from flask import Flask
-from journeyapp import db
-from journeyapp import connect
+from tapp import db
+from tapp import connect
 
 app = Flask(__name__)
 
-from journeyapp import user
-from journeyapp import manage
-from journeyapp import journeys
+from tapp import user
+from tapp import manage
+from tapp import journeys
 # Set the "secret key" that our app will use to sign session cookies. This can
 # be anything.
 # 
@@ -25,13 +25,13 @@ app.secret_key = 'Example Secret Key (CHANGE THIS TO YOUR OWN SECRET KEY!)'
 
 # Set up database connection.
 
-from journeyapp import connect
-from journeyapp import db
+from tapp import connect
+from tapp import db
 db.init_db(app, connect.dbuser, connect.dbpass, connect.dbhost, connect.dbname)
 
 # Include all modules that define our Flask route-handling functions.
-from journeyapp import user
-from journeyapp import manage
-from journeyapp import journeys
-from journeyapp import events
-from journeyapp import manage_users
+from tapp import user
+from tapp import manage
+from tapp import journeys
+from tapp import events
+from tapp import manage_users

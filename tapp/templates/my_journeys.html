@@ -1,0 +1,51 @@
+{% extends 'userbase.html' %}
+
+{% block title %}My Journeys{% endblock %}
+
+{% block content %}
+<div>
+    <!-- flash Messages -->
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-success" style="text-align: center;">{{ message }}</div>
+        {% endfor %}
+</div>
+<h3 class="text-lg-start ms-lg-3">My Journeys</h3>
+<div class="container mt-4">
+    <div class="d-flex justify-content-lg-between">
+        <h3></h3> 
+        <a href="{{ url_for('add_journey') }}" class="btn btn-primary text-white">Add a Journey</a>
+    </div>
+    <br>
+    {% if journeys %}
+        <div class="table-responsive">
+            <table class="table-disabled table-striped table-custom">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Start Date</th>
+                        <th>Status</th>
+                        <th>View Journey</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for journey in journeys %}
+                    <tr>
+                        <td>{{ journey.journey_title }}</td>
+                        <td>{{ journey.journey_description }}</td>
+                        <td data-type="date">{{ journey.start_date }}</td>
+                        <td>{{ journey.status }}</td>
+                        <td>
+                            <a href="{{ url_for('journey_details', journey_id=journey.journey_id) }}" class="btn btn-info btn-sm">View</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="alert alert-warning">You have not created any journeys yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,9 +1,11 @@
-from journeyapp import app
-from journeyapp import db
+from tapp import app
+from tapp import db
 from flask import redirect, render_template, request, session, url_for,flash
 from flask_bcrypt import Bcrypt
 import re
 import os
+from datetime import datetime
+
 
 # Create an instance of the Bcrypt class, which we'll be using to hash user
 # passwords during login and registration.

@@ -120,6 +120,22 @@ h2 {
   /* border: 2px solid var(--berkeley-blue); */
 }
 
+.btn-info {
+  background-color: var( --mali-sky) !important;
+  color: var( --berkeley-blue) !important;
+  border: none !important;
+  font-size: 0.9em;
+  padding: 10px 18px !important; 
+}
+
+.btn-warning {
+  background-color: var( --mali-sky) !important;
+  color: var( --berkeley-blue) !important;
+  border: none !important;
+  font-size: 0.9em;
+  padding: 10px 18px !important; 
+}
+
 footer {
     font-size: 12px;
     text-align: center;
@@ -250,4 +266,69 @@ hr.border-primary {
 .nav-link:hover .fa-door-open,
 .nav-link:focus .fa-door-open {
     color: var(--bittersweet-shimmer) !important;
+}
+
+/* tables */
+/* Custom table styles */
+.table-custom {
+  color: var(--berkeley-blue); /* Text color */
+  font-size: 0.8rem;
+  border: 1px solid var(--mali-sky);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.table-custom.table-striped>tbody>tr:nth-of-type(odd)>* {
+  background-color: white; /* Pure white for odd rows */
+}
+
+.table-custom.table-striped>tbody>tr:nth-of-type(even)>* {
+  background-color: var(--seashell); /* Page background for even rows */
+}
+
+.table-custom thead {
+  background-color: var(--berkeley-blue); /* Dark blue header */
+  color: white;
+}
+
+.table-custom tbody tr:hover {
+  background-color: var(--mali-sky); /* Light blue hover */
+  opacity: 0.8;
+}
+
+.table-custom th, .table-custom td {
+  padding: 12px 15px;
+  border-color: var(--mali-sky);
+  min-width: 80px;   /* Prevents extreme squishing */
+  max-width: 300px;  /* Soft limit for descriptions */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* white-space: nowrap; Default: truncate */
+}
+
+/* Let dates/numbers wrap naturally with no splits */
+.table-custom td[data-type="date"],
+.table-custom td[data-type="number"] {
+  white-space: normal !important; /* Override truncation */
+  word-break: keep-all; /* Prevents "21-03-\2025" */
+}
+
+
+.table-custom td form {
+  padding: 0 !important; /* Adds subtle spacing (4px) */
+}
+
+/* Keep dropdowns compact */
+.table-custom .form-select {
+  height: 32px;
+  line-height: 1.2;
+  min-width: 120px; /* Prevent ultra-wide dropdowns */
+  padding: 0.25rem 0.75rem !important; /* Consistent padding */
+  background-position: right 0.5rem center; /* Adjust arrow position */
+}
+
+/* Consistent button sizing */
+.table-custom .btn {
+  white-space: nowrap;
+  padding: 0.5rem 0.7rem !important; /* Tighter than Bootstrap's default */
 }

@@ -1,5 +1,4 @@
-"""This script provides an easy way to run our "Login Example" app.
-
+"""
 There are many ways to run a Flask app, and not all of them require run.py.
 When running locally, you can use any of the following approaches:
 
@@ -43,7 +42,7 @@ them bypass run.py entirely, don't put any of your application code in here.
 Think of run.py as a "shortcut" or "launcher" used to run your Flask app,
 rather than a core part of the app itself.
 """
-from journeyapp import app
+from tapp import app
 
 # If run.py was actually executed (run), not just imported into another script,
 # then start our Flask app on a local development server. To learn more about

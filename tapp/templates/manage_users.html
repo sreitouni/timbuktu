@@ -1,0 +1,66 @@
+{% extends 'userbase.html' %}
+{% block title %}Manage Users{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash-message {{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<h3 class="text-lg-start ms-lg-3">User Management</h3>
+<div class="container mt-4">
+    <div class="d-flex justify-content-lg-between">
+        <h3></h3> 
+    </div>
+    <br>
+<div class="table-responsive">
+    <table class="table-disabled table-striped table-custom">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>First Name</th>
+                <th class="px-3">Last Name</th>
+                <th>Role</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.first_name }}</td>
+            <td class="px-3">{{ user.last_name }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('change_user_role', user_id=user.user_id) }}"class="d-inline">
+                    <div class="d-flex align-items-center gap-2">
+                        <select name="new_role" class="form-select form-select-sm" onchange="this.form.querySelector('button').disabled = false;">
+                            <option value="">Remove Role</option> 
+                            <option value="traveller" {% if user.role == 'traveller' %}selected{% endif %}>Traveller</option>
+                            <option value="editor" {% if user.role == 'editor' %}selected{% endif %}>Editor</option>
+                            <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
+                        </select>
+                        <button type="submit" class="btn btn-info btn-sm" disabled>Change Role</button>
+                        </div>
+                </form>
+            </td>
+            <td>
+                <form method="POST"  action="{{ url_for('change_user_status', user_id=user.user_id) }}"class="d-inline">
+                    <div class="d-flex align-items-center gap-2">
+                        <select name="new_status" class="form-select form-select-sm" onchange="this.form.querySelector('button').disabled = false;">
+                            <option value="active" {% if user.status == 'active' %}selected{% endif %}>Active</option>
+                            <option value="blocked" {% if user.status == 'blocked' %}selected{% endif %}>Blocked</option>
+                            <option value="banned" {% if user.status == 'banned' %}selected{% endif %}>Banned</option>
+                        </select>
+                        <button type="submit" class="btn btn-info btn-sm" disabled>Change Status</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

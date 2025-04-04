@@ -2,7 +2,9 @@
 {% block title %}Manage Users{% endblock %}
 
 {% block content %}
-<style>.flash-container {
+<!-- <style> -->
+<!-- 
+/* .flash-container {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -13,9 +15,9 @@
     text-align: center;
     font-size: 18px;
     display: none; 
-}
+} */
 
-.success {
+/* .success {
     border-left: 6px solid #28a745;
     color: #155724;
     background-color: #d4edda;
@@ -26,7 +28,7 @@
     color: #721c24;
     background-color: #f8d7da;
 }
-</style>
+</style> */ -->
 {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
         {% for category, message in messages %}
@@ -34,9 +36,14 @@
         {% endfor %}
     {% endif %}
 {% endwith %}
-<h1>List of all users</h1>
+<h3 class="text-lg-start ms-lg-3">User Management</h3>
+<div class="container mt-4">
+    <div class="d-flex justify-content-lg-between">
+        <h3></h3> 
+    </div>
+    <br>
 
-<table>
+    <table class="table-disabled table-striped table-custom table-responsive">
     <tr>
         <th>Username</th>
         <th>First Name</th>
