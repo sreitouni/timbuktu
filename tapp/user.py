@@ -264,7 +264,7 @@ def signup():
                                ''',
                                (username, password_hash, email, first_name or None, last_name or None, location or None, DEFAULT_USER_ROLE, DEFAULT_USER_STATUS))
             
-            return render_template('signup.html', signup_successful=True)    
+            return redirect(url_for('login', signup_successful='true'))  # Added url_for and string 'true'   
 
     return render_template('signup.html')
 

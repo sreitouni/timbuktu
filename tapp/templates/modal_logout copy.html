@@ -1,0 +1,27 @@
+<!-- Modal: Bootstrap pop-up dialog for logout confirmation -->
+
+{% block title %}  {% endblock %}
+
+{% block content %}
+   
+<div class="modal transition" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text white">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Logout</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-danger"> <!-- bg-danger text-white -->
+                Are you sure you want to exit the app?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

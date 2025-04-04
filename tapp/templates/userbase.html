@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;800&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/regular.min.css">
+	<!-- Bootstrap JS Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
@@ -64,7 +66,7 @@
 				<div class="d-flex flex-column flex-grow-1 order-2 order-md-1 text-center text-md-end align-items-center align-items-md-end pt-2">
 					<h6 class="mb-0">{{ session['username'] }}</h6>
 					<h6 class="mb-0 fw-bold">{{ session['role']|capitalize }}</h6>
-					<a href="{{ url_for('logout') }}" class="text-link">
+					<a href="{{ url_for('logout') }}" class="text-link" id="logout-button-top" data-bs-toggle="modal" data-bs-target="#logoutModal">
 						<h6 class="mb-0" id="logout-button-topbar">[Log out]</h6>
 					</a>
 				</div>
@@ -142,13 +144,14 @@
 				<!-- Log out / Exit -->
 				<div class="sidebar-icon-wrapper">
 					<div class="sidebar-icon mb-2">
-						<a href="{{ url_for('logout') }}" class="sidebar-link">
+						<a href="#" id="logout-button" data-bs-toggle="modal" data-bs-target="#logoutModal" class="sidebar-link">
 							<img src="{{ url_for('static', filename='images/exit_red.png') }}" class="icon icon-gray">
 							<img src="{{ url_for('static', filename='images/exit_red.png') }}" class="icon icon-blue">
 						</a>
 						<span class="icon-label">Logout</span>
 					</div>
 				</div>
+
             </ul>
         </nav>
 
@@ -163,7 +166,7 @@
     </div>
     
     <footer class="footer text-center p-3">
-        <p class="mb-0">Copyright © 2025</p>
+        <p class="mb-0">© 2025 AKL</p>
     </footer>
     <script> 
 		(() => {
@@ -186,5 +189,6 @@
 		})()
 	</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{% include 'modal_logout.html' %}
 </body>
 </html>

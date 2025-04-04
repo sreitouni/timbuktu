@@ -5,10 +5,9 @@
 <h3 class="text-lg-start ms-lg-3">Journey Details</h3>
 
 <div class="container mt-4">
-
     <div class="d-flex justify-content-lg-between">
      
-        <div class="card mb-4 col-12 pb-2">
+        <div class="card mb-5 col-12 col-lg-10">
             <h3 class='p-4 blue-text'> Edit Details</h3>
             <!-- flash Messages -->
             {% for message in get_flashed_messages() %}
@@ -57,75 +56,56 @@
         </div>
     </div>
 </div>
-<div class="container mt-1">
+<div class="container mt-4">
     <div class="d-flex justify-content-lg-between">
      
         <div class="mb-5 col-12 col-lg-10">
-            <div class="mb-3 col-lg-8">
                 {% if is_owner %}
-                    <!-- Delete Journey Button -->
-                    <div class="mb-2 text-start">
-                        <form action="{{url_for('delete_journey', journey_id = journey_id)}}" method="POST"
-                            onsubmit="return confirm('Are you sure you want to delete this journey and any events related to it?')"
-                            style="display: inline-block;">
-                            <button type="submit" class="btn btn-danger">Delete Journey</button>
-                        </form>
-                    </div>
-                    
-                    <!-- Back to My Journeys Button -->
-                    <div class="mb-2">
-                        <a href="{{ url_for('my_journeys') }}" class="btn btn-outline-secondary">Back to My Journeys</a>
-                    </div>
-                    
-                    <!-- Add Event Button -->
-                    <div class="mb-2">
-                        <a href="{{ url_for('add_event', journey_id=journey_id) }}" class="btn btn-primary text-white">Add Event</a>
-                    </div>
-                
-                {% else %}
-                    <!-- Back to Public Journeys Button -->
-                    <div class="mb-2">
-                        <a href="{{ url_for('public_journeys') }}" class="btn btn-outline-secondary">Back to Public Journeys</a>
-                    </div>
-                {% endif %}
-            </div>
+                <div class="mb-3 col-lg-8">
+                    <form action="{{url_for('delete_journey', journey_id = journey_id)}}" method="POST"
+                                            onsubmit="return confirm('Are you sure you want to delete this journey and any events related to it?')"
+                                            style="display: inline-flex;">
+                                    <button type="submit" class="btn btn-danger">Delete Journey</button> 
+                    </form>
+                    <a href="{{ url_for('my_journeys') }}" class="btn btn-secondary">Back to My Journeys</a>
+                    <a href="{{ url_for('add_event', journey_id=journey_id) }}" class="btn btn-primary text-white my-2">Add Event</a>
+                    {% else %}
+                    <a href="{{ url_for('public_journeys') }}" class="btn btn-secondary">Back to Public Journeys</a>
+                    {% endif %}
+                </div>
         </div>
     </div>
 </div>
-    <!-- Display events -->
-    <div class="d-flex justify-content-lg-between">
-        <div class="table-responsive">
-            <div class="mb-4 border rounded">
-                <h3 class='p-4 '>Journey's Events</h3>
+<!-- Display events -->
+ <div class="table-responsive">
+    <div class="card mb-4 border border-3 border-primary">
+        <h3 class='p-4 card-header '>Events</h3>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Event Date Time</th>
+                        <th scope="col">Event Title</th>
+                        <th scope="col">Event Location</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
                 {% if events %}
-                <div class="table-responsive border rounded">
-                    <table class="table-disabled table-striped table-custom">
-                        <thead>
-                            <tr>
-                                <th scope="col">Event Date Time</th>
-                                <th scope="col">Event Title</th>
-                                <th scope="col">Event Location</th>
-                                <th scope="col">Actions</th>
-                            </tr>
-                        </thead>
-                        
-                        <tbody>
-                            {% for ee in events %}
-                            <tr>
-                                <td data-type="date">{{ ee.start_date }}</td>
-                                <td>{{ ee.event_title }}</td>
-                                <td>{{ ee.event_location }}</td>
-                                <td>View</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                        
-                    </table>
-                    {% else %}
-                        <h6 class="p-3">No events found for this journey</h6>
-                        {% endif %}
-                </div>
-            </div>
+                <tbody>
+                    {% for ee in events %}
+                    <tr>
+                        <td>{{ ee.start_date }}</td>
+                        <td>{{ ee.event_title }}</td>
+                        <td>{{ ee.event_location }}</td>
+                        <td>View</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                {% else %}
+                <p>No events found for this journey.</p>
+                {% endif %}
+            </table>
         </div>
     </div>
+</div>
 {% endblock %}

@@ -83,7 +83,16 @@
               </form>
              
           </div>
-          
+          {% if signup_successful %}
+          <div class="bg-success text-white border border-top-0 rounded-bottom text-center">
+              <div class="p-2">You have successfully signed up! <a class="link-light" href="{{ url_for('login') }}">Log in</a></div>
+          </div>
+          {% else %}
+          <div class="d-flex ms-2">
+            <p class="label-captions">Already have an account?</p>
+            <a href="{{ url_for('login') }}" class="label-captions text-link" >Log in</a>
+          </div>
+          {% endif %}            
         </div>
       </div>
     </div>
