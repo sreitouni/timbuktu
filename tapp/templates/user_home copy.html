@@ -1,0 +1,23 @@
+{% extends 'userbase.html' %}
+
+{% block title %}Timbuktu Dashboard{% endblock %}
+
+{# Set the active page to be highlighted in the navigation bar. #}
+{% set active_page = 'home' %}
+
+{% block content %}
+<h1 class="text-md-start"> Dashboard - {{role | upper}} </h1>
+
+<section class="container py-5 text-start">
+    <div class="row justify-content-top">
+        <div class="col-lg-7">
+            <p class="lead text-pale"> Hi <strong class="fw-bold text-dark-forest">{{username}}</strong>, <br> Welcome to Timbuktu dashboard. 
+                <br> You are logged on as a <strong class="fw-bold text-dark-forest">{{role | capitalize}}</strong>. 
+                <br> Please, use the options in the navbar to navigate the app. </p>
+                <br>Enjoy!
+
+                <a href='/my_journeys' class="btn btn-primary"> My Journeys</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

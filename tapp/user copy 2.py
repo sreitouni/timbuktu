@@ -11,12 +11,12 @@ from datetime import datetime
 # passwords during login and registration.
 flask_bcrypt = Bcrypt(app)
 
-USER_ROLE_TRAVELLER = 'traveller'
+USER_ROLE_traveller = 'traveller'
 USER_ROLE_EDITOR = 'editor'
 USER_ROLE_ADMIN = 'admin'
 
 # Default role assigned to new users upon registration.
-DEFAULT_USER_ROLE = USER_ROLE_TRAVELLER
+DEFAULT_USER_ROLE = USER_ROLE_traveller
 
 # assuming default user status is 'active'.
 DEFAULT_USER_STATUS = 'active'
@@ -29,7 +29,7 @@ def user_home_url():
     if 'loggedin' in session:
         role = session.get('role', None)
 
-        if role== USER_ROLE_TRAVELLER:
+        if role== USER_ROLE_traveller:
             home_endpoint='traveller_home'
         elif role== USER_ROLE_EDITOR:
             home_endpoint='editor_home'
@@ -46,13 +46,13 @@ def user_home_url():
 def traveller_home():
     if 'loggedin' not in session:
         return redirect(url_for('login'))
-    return render_template('user_home.html')
+    return render_template('traveller_home.html')
 
 @app.route('/editor/home')
 def editor_home():
     if 'loggedin' not in session:
         return redirect(url_for('login'))
-    return render_template('user_home.html')
+    return render_template('editor_home.html')
 
 
 @app.route('/admin/home')
@@ -61,7 +61,7 @@ def admin_home():
           return redirect(url_for('login'))
      elif session['role']!='admin':
           return render_template('access_denied.html'), 403
-     return render_template('user_home.html')
+     return render_template('admin_home.html')
 
 @app.route('/', endpoint='home')
 def root():
