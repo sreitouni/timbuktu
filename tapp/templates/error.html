@@ -1,0 +1,24 @@
+{% extends base_template %} <!-- uses base_public or Base_panelbased if loggein or not. See errors.py route-->
+{% block title %} Timbuktu - Error Message {% endblock %}
+
+{% block content %}
+<h3 class="text-lg-start ms-lg-3">Error Message</h3>
+<div class="container mt-4">
+    
+    <!-- Close X button -->
+    <div class="d-flex justify-content-end p-1">
+        <a href="{{ url_for('home') }}">
+            <img class="close-button" src="/static/images/close.png" alt="close button" width="30em"> <!-- Close button -->
+        </a>
+    </div>
+
+    <div class="container border, border-4 border-light rounded text-center fs-1 fw-bold py-5">
+        <p></p> <!-- Add empty space -->
+        {{ error_code }} <!-- Display the error code -->
+        <p>Oops! Something bad happened...</p> <!-- Display some humour :) -->
+        <p>{{ error_message }}</p> <!-- Display the error message -->
+        <h6>Let's try something else</h6>
+        <p></p>
+    </div>
+
+{% endblock %}

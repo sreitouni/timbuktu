@@ -1,6 +1,6 @@
 from tapp import app
 from tapp import db
-from flask import redirect, render_template, request, g, session, url_for,flash
+from flask import redirect, render_template, request, session, url_for,flash
 from flask_bcrypt import Bcrypt
 import re
 import os
@@ -101,7 +101,7 @@ def login():
             # equally valid to put the whole SQL statement on one line like we
             # do at the beginning of the `signup` function.
             cursor.execute('''
-                           SELECT user_id, username, password_hash, role, status, profile_image
+                           SELECT user_id, username, password_hash, role, status
                            FROM users
                            WHERE username = %s;
                            ''', (username,))
@@ -127,18 +127,12 @@ def login():
                         return render_template('login.html', 
                                                username=username,
                                                account_inactive=True,
-                                               message="Your account currently is banned. Please contact admin.")
+                                               message="Your account currently is banned. Please contact with admin.")
                     else:
                         session['loggedin'] = True
                         session['user_id'] = account['user_id']
                         session['username'] = account['username']
                         session['role'] = account['role']
-                        session['profile_image'] = account['profile_image']
-                         # DEBUG: Print session and account data
-                        print(f"\n🔍 DEBUG - Login Session Data:")
-                        print(f"Account DB Fields: {account.keys()}")
-                        print(f"Profile Image in DB: {account['profile_image']}")
-                        print(f"Session Being Set: {dict(session)}\n")
                         return redirect(user_home_url())
                 else:
                     # Password is incorrect. Re-display the login form, keeping
@@ -278,27 +272,3 @@ def signup():
 def logout():
     session.clear()  # Clear all session data
     return redirect(url_for('login'))
-
-# @app.before_request
-# def load_user_profile():
-#     if 'loggedin' in session:
-#         g.profile = {
-#             'user_id': session['user_id'],
-#             'username': session['username'],
-#             'role': session['role'],
-#             'profile_image': session.get('profile_image')  # Using .get() in case it's missing
-#         }
-#     else:
-#         g.profile = None
-
-@app.before_request
-def load_user_profile():
-    if 'loggedin' in session:
-        g.profile = {
-            'user_id': session['user_id'],
-            'username': session['username'],
-            'role': session['role'],
-            'profile_image': session['profile_image'] if session.get('profile_image') not in [None, ''] else None
-        }
-    else:
-        g.profile = None

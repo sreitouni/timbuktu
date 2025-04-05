@@ -1,6 +1,6 @@
 from tapp import app
 from tapp import db
-from flask import redirect, render_template, request, g, session, url_for,flash
+from flask import redirect, render_template, request, session, url_for,flash
 from flask_bcrypt import Bcrypt
 import re
 from werkzeug.utils import secure_filename
@@ -91,8 +91,6 @@ def profile():
             save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             new_profile_image.save(save_path)
             new_profile_image = filename  # Store only filename without path
-            session['profile_image'] = filename
-            
         else:
             new_profile_image = request.form.get('profile_image_old')
 
@@ -219,17 +217,16 @@ def drop_profile_image():
         # Get current image filename before deletion
         with db.get_cursor() as cursor:
             cursor.execute('SELECT profile_image FROM users WHERE user_id = %s', (session['user_id'],))
-            result = cursor.fetchone()  # Returns a dictionary like {'profile_image': 'filename.jpg'} or None
-            old_image = result['profile_image'] if result else None  # Dictionary access
+            old_image = cursor.fetchone()[0]
 
-            # Update database (unchanged)
+            # Update database
             cursor.execute('''
                 UPDATE users 
                 SET profile_image = NULL 
                 WHERE user_id = %s
             ''', (session['user_id'],))
 
-        # Delete old image file (unchanged)
+        # Delete old image file (if exists and isn't default)
         if old_image and old_image != 'default.jpg':
             try:
                 import os
@@ -238,13 +235,9 @@ def drop_profile_image():
             except FileNotFoundError:
                 pass  # File already deleted
 
-            # When deleting/changing a profile image:
-            session['profile_image'] = None
-
-        # Trigger success message
-        return redirect(url_for('profile', profile_image_delete_successful=True))
+        flash('Profile image deleted successfully', 'success')
     except Exception as e:
         flash('Error deleting profile image', 'error')
         current_app.logger.error(f"Error in drop_profile_image: {str(e)}")
 
-    # return redirect(url_for('profile'))
+    return redirect(url_for('profile'))

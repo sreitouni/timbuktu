@@ -1,6 +1,6 @@
 from tapp import app
 from tapp import db
-from flask import redirect, render_template, request, g, session, url_for,flash
+from flask import redirect, render_template, request, session, url_for,flash
 from flask_bcrypt import Bcrypt
 import re
 from werkzeug.utils import secure_filename
@@ -87,12 +87,9 @@ def profile():
 
         #save the new iamge if there is any 
         if new_profile_image and new_profile_image.filename:
-            filename = secure_filename(f"{session['user_id']}_{new_profile_image.filename}")
-            save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            save_path = os.path.join(app.config['UPLOAD_FOLDER'], new_profile_image.filename)
             new_profile_image.save(save_path)
-            new_profile_image = filename  # Store only filename without path
-            session['profile_image'] = filename
-            
+            new_profile_image = os.path.join('profile_images', new_profile_image.filename).replace(os.sep, '/') #load the picture information to the value
         else:
             new_profile_image = request.form.get('profile_image_old')
 
@@ -122,13 +119,12 @@ def profile():
         with db.get_cursor() as cursor:
             cursor.execute(''' 
                                 UPDATE users 
-                                SET username = %s, email=%s, 
+                               SET username = %s, email=%s, 
                                     first_name=%s, 
                                     last_name=%s, location=%s, 
                                     profile_image=%s
-                                WHERE user_id = %s;''', 
-                                (new_username, new_email, new_first_name, new_last_name, new_location, new_profile_image if new_profile_image else request.form.get('profile_image_old'),session['user_id'])
-                            )
+                               WHERE user_id = %s;''', 
+                               (new_username, new_email, new_first_name, new_last_name, new_location, new_profile_image,session['user_id']))
                 
             cursor.execute('''SELECT username, email, role, first_name, last_name, location, profile_image  
                         FROM users WHERE user_id = %s;''',
@@ -203,48 +199,20 @@ def change_password():
                 return render_template('change_password.html', password_updated = True)
     return render_template('change_password.html')
 
-@app.route('/drop_profile_image', methods=['POST'])
+@app.route('/drop_profile_image')
 def drop_profile_image():
-    """
-    # 1. Verifie user is logged in
-    # 2. Update database (set profile_image = NULL)
-    # 3. Delete old image file from server
-    # 4. Redirect back to profile page
+#Create function to drop user profile image
 
-    """
-    if 'loggedin' not in session:
-        return redirect(url_for('login'))
+    with db.get_cursor() as cursor:
+        cursor.execute(''' 
+                        UPDATE users
+                        SET profile_image = NULL
+                       WHERE user_id = %s;''', (session['user_id'], ))
 
-    try:
-        # Get current image filename before deletion
-        with db.get_cursor() as cursor:
-            cursor.execute('SELECT profile_image FROM users WHERE user_id = %s', (session['user_id'],))
-            result = cursor.fetchone()  # Returns a dictionary like {'profile_image': 'filename.jpg'} or None
-            old_image = result['profile_image'] if result else None  # Dictionary access
+    with db.get_cursor() as cursor:
+        cursor.execute('''SELECT username, email, role, first_name, last_name, location, profile_image 
+                        FROM users WHERE user_id = %s;''',
+                        (session['user_id'],))
+        profile = cursor.fetchone()
+    return render_template('profile.html', profile=profile)
 
-            # Update database (unchanged)
-            cursor.execute('''
-                UPDATE users 
-                SET profile_image = NULL 
-                WHERE user_id = %s
-            ''', (session['user_id'],))
-
-        # Delete old image file (unchanged)
-        if old_image and old_image != 'default.jpg':
-            try:
-                import os
-                from flask import current_app
-                os.remove(os.path.join(current_app.static_folder, 'profile_images', old_image))
-            except FileNotFoundError:
-                pass  # File already deleted
-
-            # When deleting/changing a profile image:
-            session['profile_image'] = None
-
-        # Trigger success message
-        return redirect(url_for('profile', profile_image_delete_successful=True))
-    except Exception as e:
-        flash('Error deleting profile image', 'error')
-        current_app.logger.error(f"Error in drop_profile_image: {str(e)}")
-
-    # return redirect(url_for('profile'))

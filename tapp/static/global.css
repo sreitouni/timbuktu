@@ -191,6 +191,11 @@ hr.border-primary {
   opacity: 1;
 }
 
+.border-secondary {
+  border-color: var(--taupe-gray) !important; 
+}
+
+
 .form-label {
     font-size: small;
     text-align: left !important;
@@ -207,6 +212,12 @@ hr.border-primary {
   padding-right: 10px;
   width: 100%; /* Stretch to fill the container */
   height: 40px;
+}
+
+ /* Read-only form */
+.form-control:disabled {
+  background-color: white !important;
+  opacity: 1 !important;
 }
 
 .label-captions {
@@ -343,7 +354,7 @@ hr.border-primary {
 
 
 /* Removes modal borders */
-#logoutModal .modal-content {
+/* #logoutModal .modal-content {
   border: none;
   box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
@@ -358,8 +369,30 @@ hr.border-primary {
 #logoutModal .modal-body {
   padding-top: 0;
   color: var( --bittersweet-shimmer);
+} */
+
+
+/* Modals */
+#logoutModal .modal-content,
+#deleteProfileImageModal .modal-content {
+  border: none;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
 
+#logoutModal .modal-header,
+#logoutModal .modal-footer,
+#deleteProfileImageModal .modal-header,
+#deleteProfileImageModal .modal-footer {
+  border: none;
+  font-weight: 600;
+  padding-bottom: 12px;
+}
+
+#logoutModal .modal-body,
+#deleteProfileImageModal .modal-body {
+  padding-top: 0;
+  color: var(--bittersweet-shimmer);
+}
 
 /* Customise alert messages */
 .alert-success {

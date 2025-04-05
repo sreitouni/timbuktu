@@ -1,0 +1,30 @@
+<!-- Modal: Bootstrap pop-up dialog for detele profile image confirmation -->
+
+{% block title %}  {% endblock %}
+
+{% block content %}
+   
+<!-- No extends or blocks needed - pure modal HTML -->
+<div class="modal fade" id="deleteProfileImageModal" tabindex="-1" aria-labelledby="deleteProfileImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="deleteProfileImageModalLabel">Confirm Delete</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete the profile imgage?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <!-- <a href="{{ url_for('drop_profile_image') }}" class="btn btn-danger">Delete</a> -->
+                <form action="{{ url_for('drop_profile_image') }}" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

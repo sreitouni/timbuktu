@@ -17,31 +17,25 @@
         </div>
     </div>
 
-    {% if request.args.get('profile_image_delete_successful') %}
-    <div class="alert alert-success alert-dismissible fade show position-relative col-lg-7" role="alert">
-        <strong>Success!</strong> Your profile image was successfully deleted.
-        <button type="button" class="custom-close" data-bs-dismiss="alert" aria-label="Close">
-            <img src="{{ url_for('static', filename='images/close.png') }}" alt="Close" width="30" height="30">
-        </button>
-    </div>
-    {% endif %}
-
     <form action="{{ url_for('profile') }}" method="POST" enctype="multipart/form-data">
         <div class="row g-lg-0">
             {% if update_successful %}
-                <div class="alert alert-success alert-dismissible fade show position-relative col-lg-5" role="alert">
-                <strong>Success!</strong> Your profile was successfully updated!
-                    <button 
-                        type="button" 
-                        style="background: none; border: none; color: inherit; font-size: 1.1rem; right: 8px; top: 6px;" 
-                        class="position-absolute p-0" 
-                        onclick="this.closest('.alert').remove();"
-                        aria-label="Close"
-                        >
-                        ✕
-                    </button>
-                </div>
-            {% endif %}
+            <!-- <div class="bg-success text-white rounded text-center mt-3 col-12 col-lg-6 position-relative">
+                <div class="p-2">Profile updated successfully!</div>
+                <button class="btn-close-white position-absolute top-0 end-0 m-1" 
+                        onclick="this.parentElement.remove()" 
+                        aria-label="Close"></button>
+            </div> -->
+            <div class="bg-success text-white rounded text-center mt-3 col-12 col-lg-6 position-relative">
+                <div class="p-2 pe-4">Profile updated successfully!</div> <!-- Position the X ...px from the right/top edge-->
+                <button style="background: none; border: none; color: white; font-size: 1.1rem; right: 8px; top: 6px;" 
+                        class="position-absolute" 
+                        onclick="this.parentElement.remove()"
+                        aria-label="Close">
+                    ✕  <!-- X character -->
+                </button>
+            </div>
+                {% endif %}
             <!-- LEFT COLUMN - Form Fields -->
             <div class="col-lg-8 order-lg-1 order-2">
 
@@ -86,14 +80,15 @@
                         <div class="invalid-feedback">{{ new_location_error }}</div>
                     </div>
                 </div>
-                
+        
+                <!-- 
                 <div class="row mb-3">
                     <div class="col-lg-8">
                         <label for="role" class="form-label">Role</label>
                         <input type="text" class="form-control" id="role" name="role" value="{{ profile. role}}" disabled>
                     </div>
                 </div>   
-               
+                -->
 
                  <!-- Buttons -->
                 <div class="row justify-content-center justify-content-md-start mt-4">
@@ -113,58 +108,27 @@
             <div class="col-lg-4 order-lg-2 order-1">
                 <div class="my-3 text-center">
                     <label for="profile_image" class="form-label"></label>
-                    {% set img_path = 'profile_images/' + (profile.profile_image if profile.profile_image else 'default.jpg') %}
-                    <img src="{{ url_for('static', filename=img_path) }}" 
-                         alt="Profile Image" 
-                         class="img-fluid mb-3 col-4 col-lg-10 rounded rounded-circle border border-2 border-secondary"
-                         style="width: 160px; height: 160px;">
-                    
                     {% if profile.profile_image %}
-                        
+                        <img src="{{ url_for('static', filename=profile.profile_image) }}" 
+                             alt="Profile Image" 
+                             class="img-fluid mb-3 rounded"
+                             style="max-width: 60%; height: auto;">
+                        <div class="mb-3">
+                            <a class="btn btn-danger" href="{{url_for('drop_profile_image')}}">
+                                Delete Profile Image
+                            </a>
+                        </div>
                     {% else %}
                         <div class="mb-3 text-muted">
-                            <p class="label-captions">Default profile image</p>
+                            <i class="fas fa-user fa-3x d-block mb-2"></i>
+                            <p class="label-captions">No profile image added</p>
                         </div>
                     {% endif %}
-                    
                     <input type="file" class="form-control" id="profile_image" name="profile_image" accept="image/*">
                 </div>
             </div>
         </div>
        
     </form>
-    <!-- SEPARATE DELETE FORM (placed after main form, not nested) -->
-    {% if profile.profile_image %}
-    <div class="col-lg-8 order-lg-1 order-2">
-        <div class="row justify-content-center justify-content-md-start mt-2">
-            <div class="col-lg-8">
-                <div class="d-grid gap-2">
-                    <form action="{{ url_for('drop_profile_image') }}" method="POST" style="display: contents;" class="">
-                        <button type="button" 
-                                class="btn btn-danger"
-                                data-bs-toggle="modal" 
-                                data-bs-target="#deleteProfileImageModal"
-                                >
-                                Delete Profile Image
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {% endif %}
 </section>
-{% include 'modal_delete_profile_image.html' %}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-      document.querySelectorAll('.alert button[aria-label="Close"]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          this.closest('.alert').remove();
-          // Redirect to CLEAN URL (/profile) instead of reloading
-          window.location.href = "{{ url_for('profile') }}";
-        });
-      });
-    });
-    </script>
 {% endblock %}

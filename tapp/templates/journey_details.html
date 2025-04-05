@@ -8,7 +8,7 @@
 
     <div class="d-flex justify-content-lg-between">
      
-        <div class="card mb-4 col-12 pb-2">
+        <div class="mb-4 col-12 pb-2"> <!-- card -->
             <h3 class='p-4 blue-text'> Edit Details</h3>
             <!-- flash Messages -->
             {% for message in get_flashed_messages() %}
@@ -33,7 +33,7 @@
                         <div class="invalid-feedback">{{ journey_description_error }}</div>
                     </div>
                     {% if is_owner %}
-                    <!-- add checkbox to set public-->
+                    <!-- Add checkbox to set status: public or private -->
                     <div  class="mb-3 ">
                         <label for="role" class="form-label">Status</label>
                         <select class="form-select" id="role" name="journey_status" required>

@@ -42,12 +42,16 @@
 					<a href="{{ url_for('profile') }}" class="photo-link" id="profile-photo-button">
 						{% set img_path = 'profile_images/' + (g.profile.profile_image if g.profile and g.profile.profile_image else 'default.jpg') %}
 						<img src="{{ url_for('static', filename=img_path) }}"
-							 class="rounded-circle mb-2 mb-lg-0"
-							 width="40"
-							 height="40"
-							 alt="{{ g.profile.username if g.profile else 'Guest' }} avatar">
+							class="rounded-circle mb-2 mb-lg-0"
+							width="40"
+							height="40"
+							alt="{{ session['username'] }} avatar">
 					</a>
 				</div>
+
+
+
+
 				         
 				<!-- Username and Role stacked jstified right -->
 				<!-- <div class=" d-flex flex-column flex-grow-1 order-2 order-md-1 text-center text-md-end align-items-center align-items-md-end pt-2 ">

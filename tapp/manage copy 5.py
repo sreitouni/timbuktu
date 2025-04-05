@@ -1,6 +1,6 @@
 from tapp import app
 from tapp import db
-from flask import redirect, render_template, request, g, session, url_for,flash
+from flask import redirect, render_template, request, session, url_for,flash
 from flask_bcrypt import Bcrypt
 import re
 from werkzeug.utils import secure_filename
@@ -91,8 +91,6 @@ def profile():
             save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             new_profile_image.save(save_path)
             new_profile_image = filename  # Store only filename without path
-            session['profile_image'] = filename
-            
         else:
             new_profile_image = request.form.get('profile_image_old')
 
@@ -215,36 +213,15 @@ def drop_profile_image():
     if 'loggedin' not in session:
         return redirect(url_for('login'))
 
-    try:
-        # Get current image filename before deletion
-        with db.get_cursor() as cursor:
-            cursor.execute('SELECT profile_image FROM users WHERE user_id = %s', (session['user_id'],))
-            result = cursor.fetchone()  # Returns a dictionary like {'profile_image': 'filename.jpg'} or None
-            old_image = result['profile_image'] if result else None  # Dictionary access
+    # Update database
+    with db.get_cursor() as cursor:
+        cursor.execute('''
+                       UPDATE users 
+                       SET profile_image = NULL 
+                       WHERE user_id = %s''', (session['user_id'],)
+                      )
+    # Delete old image file from server ???
+    
+    # Redirect back to profile page
+    return redirect(url_for('profile'))
 
-            # Update database (unchanged)
-            cursor.execute('''
-                UPDATE users 
-                SET profile_image = NULL 
-                WHERE user_id = %s
-            ''', (session['user_id'],))
-
-        # Delete old image file (unchanged)
-        if old_image and old_image != 'default.jpg':
-            try:
-                import os
-                from flask import current_app
-                os.remove(os.path.join(current_app.static_folder, 'profile_images', old_image))
-            except FileNotFoundError:
-                pass  # File already deleted
-
-            # When deleting/changing a profile image:
-            session['profile_image'] = None
-
-        # Trigger success message
-        return redirect(url_for('profile', profile_image_delete_successful=True))
-    except Exception as e:
-        flash('Error deleting profile image', 'error')
-        current_app.logger.error(f"Error in drop_profile_image: {str(e)}")
-
-    # return redirect(url_for('profile'))
