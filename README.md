@@ -5,8 +5,8 @@
 <pre>
 Name:                  Salvatore Reito (Salvo)
 Student ID:            1155720
-PA username:           ......
-PA URL:                https://www.pythonanywhere.com/user/....
+PA username:           timbuktu
+PA URL:                https://timbuktu.pythonanywhere.com
 GitHub username:       sreitouni
 GitHub repository:     https://github.com/sreitouni/timbuktu
 Teacher:               lincolnmac
