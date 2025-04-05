@@ -100,10 +100,8 @@
 
 				<!-- My journal / My Journeys -->
                 <div class="sidebar-icon-wrapper">
-					<div class="sidebar-icon mb-2 {% if 
-						(request.path == url_for('journeys') and not request.args.get('public') == 'true') or 
-						(request.path.startswith('/journey_details/') and is_owner) %}active{% endif %}">
-						<a href="{{ url_for('journeys') }}" class="sidebar-link">
+					<div class="sidebar-icon mb-2 {% if request.path == '/my_journeys' or (request.path.startswith('/journey_details/') and is_owner) %}active{% endif %}">
+						<a href="{{ url_for('my_journeys') }}" class="sidebar-link">
 							<img src="{{ url_for('static', filename='images/myjourneys_gray.png') }}" class="icon icon-gray">
 							<img src="{{ url_for('static', filename='images/myjourneys_blue.png') }}" class="icon icon-blue">
 						</a>
@@ -113,10 +111,8 @@
 
 				<!-- Explore Other Traveller Journals -->
                 <div class="sidebar-icon-wrapper">
-					<div class="sidebar-icon mb-2 {% if 
-						(request.path == url_for('journeys') and request.args.get('public') == 'true') or 
-						(request.path.startswith('/journey_details/') and not is_owner) %}active{% endif %}">
-						<a href="{{ url_for('journeys', public='true') }}" class="sidebar-link">
+					<div class="sidebar-icon mb-2 {% if request.path == '/public_journeys' or (request.path.startswith('/journey_details/') and not is_owner) %}active{% endif %}">
+						<a href="{{ url_for('public_journeys') }}" class="sidebar-link">
 							<img src="{{ url_for('static', filename='images/explore_gray.png') }}" class="icon icon-gray">
 							<img src="{{ url_for('static', filename='images/explore_blue.png') }}" class="icon icon-blue">
 						</a>

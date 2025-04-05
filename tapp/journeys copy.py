@@ -63,42 +63,47 @@ def add_journey():
     return render_template('add_journey.html')
 
 
-@app.route('/journeys')
-def journeys():
+@app.route('/my_journeys', methods=['GET'])
+def my_journeys():
     if 'loggedin' not in session:
         return redirect(url_for('login'))
-    
-    user_id = session['user_id']
-    is_public_view = request.args.get('public', 'false').lower() == 'true'
-    
-    if is_public_view:
-        query = '''
-            SELECT journey_id, journey_title, journey_description, start_date, status
-            FROM journeys
-            WHERE user_id != %s AND status = 'public'
-            ORDER BY start_date DESC
-        '''
-        page_title = "Explore Travelers' Journeys"
-    else:
-        query = '''
+    user_id = session['user_id'] 
+
+    with db.get_cursor() as cursor:
+        # make journey list ordered by date from newest to oldest.
+        cursor.execute('''
             SELECT journey_id, journey_title, journey_description, start_date, status
             FROM journeys
             WHERE user_id = %s
             ORDER BY start_date DESC
-        '''
-        page_title = "My Journeys"
-    
-    with db.get_cursor() as cursor:
-        cursor.execute(query, (user_id,))
+        ''', (user_id,))
         journeys = cursor.fetchall()
+        # convert datetime to string
         for journey in journeys:
             if isinstance(journey['start_date'], datetime):
                 journey['start_date'] = journey['start_date'].strftime('%d-%m-%Y')
-    
-    return render_template('journeys.html',
-                        journeys=journeys,
-                        page_title=page_title,
-                        is_public_view=is_public_view)
+    return render_template('my_journeys.html', journeys=journeys)
+
+@app.route('/public_journeys', methods=['GET'])
+def public_journeys():
+    if 'loggedin' not in session:
+        return redirect(url_for('login'))
+    user_id = session['user_id'] 
+
+    with db.get_cursor() as cursor:
+        # get public journey list ordered by date from newest to oldest.
+        cursor.execute('''
+            SELECT journey_id, journey_title, journey_description, start_date, status
+            FROM journeys
+            WHERE user_id != %s and status = 'public'
+            ORDER BY start_date DESC
+        ''', (user_id,))
+        journeys = cursor.fetchall()
+        # convert datetime to string
+        for journey in journeys:
+            if isinstance(journey['start_date'], datetime):
+                journey['start_date'] = journey['start_date'].strftime('%d-%m-%Y')
+    return render_template('public_journeys.html', journeys=journeys)
 
 @app.route('/journey_details/<int:journey_id>', methods=['GET', 'POST'])
 def journey_details(journey_id):
@@ -216,7 +221,7 @@ def delete_journey(journey_id):
                         WHERE journey_id = %s''', (journey_id,) )
     
     flash('Journey has been deleted!', 'success')
-    return redirect(url_for('journeys'))
+    return redirect(url_for('my_journeys'))
 
 
 # Salvo 

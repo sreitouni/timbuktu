@@ -47,7 +47,7 @@
                         <div class="col-lg-8">
                             <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary text-white">Submit</button>
-                            <a href='/my_journeys' class="btn btn-outline-secondary">Cancel</a>
+                            <a href='/journeys' class="btn btn-outline-secondary">Cancel</a>
                         </div>
                     </div>
 
@@ -74,7 +74,7 @@
                     
                     <!-- Back to My Journeys Button -->
                     <div class="mb-2">
-                        <a href="{{ url_for('my_journeys') }}" class="btn btn-outline-secondary">Back to My Journeys</a>
+                        <a href="{{ url_for('journeys') }}" class="btn btn-outline-secondary">Back to My Journeys</a>
                     </div>
                     
                     <!-- Add Event Button -->
@@ -85,7 +85,7 @@
                 {% else %}
                     <!-- Back to Public Journeys Button -->
                     <div class="mb-2">
-                        <a href="{{ url_for('public_journeys') }}" class="btn btn-outline-secondary">Back to Public Journeys</a>
+                        <a href="{{ url_for('journeys') }}" class="btn btn-outline-secondary">Back to Public Journeys</a>
                     </div>
                 {% endif %}
             </div>

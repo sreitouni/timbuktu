@@ -1,0 +1,57 @@
+{% extends 'userbase.html' %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div>
+    <!-- flash Messages -->
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-success" style="text-align: center;">{{ message }}</div>
+    {% endfor %}
+</div>
+
+<h3 class="text-lg-start ms-lg-3">{{ page_title }}</h3>
+
+<div class="container mt-4">
+    {% if not is_public_view and not journeys %}
+        <h6 class="mt-5">You have not created any journeys yet.</h6>
+    {% elif is_public_view and not journeys %}
+        <p class="alert alert-warning">No public journeys shared by others.</p>
+    {% endif %}
+
+    <div class="d-flex justify-content-lg-between">
+        <h3></h3> 
+        <a href="{{ url_for('add_journey') }}" class="btn btn-primary text-white">Add a Journey</a>
+    </div>
+
+    {% if journeys %}
+    <div class="table-responsive border rounded mt-3">
+        <table class="table-disabled table-striped table-custom">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Start Date</th>
+                    {% if not is_public_view %}<th>Status</th>{% endif %}
+                    <th>View Journey</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for journey in journeys %}
+                <tr>
+                    <td>{{ journey.journey_title }}</td>
+                    <td>{{ journey.journey_description }}</td>
+                    <td data-type="date">{{ journey.start_date }}</td>
+                    {% if not is_public_view %}<td>{{ journey.status }}</td>{% endif %}
+                    <td>
+                        <a href="{{ url_for('journey_details', journey_id=journey.journey_id) }}" 
+                           class="btn btn-info btn-sm">View</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
