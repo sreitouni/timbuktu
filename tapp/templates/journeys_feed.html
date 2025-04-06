@@ -1,0 +1,44 @@
+{% extends 'userbase.html' %}
+
+{% block title %}Journeys Feed{% endblock %}
+
+{% block content %}
+<div class="container">
+    
+    {% for journey in journeys_feed %}
+    <div class="border rounded bg-white p-5 m-3 text-start">
+
+        <!-- Journey Header -->
+        <div class="d-flex align-items-center mb-3">
+            <img src="{{ url_for('static', filename='profile_images/' + journey.user.avatar) if journey.user.avatar else url_for('static', filename='profile_images/default.jpg') }}" 
+                 style="width:50px; height:50px; border-radius:50%; margin-right:10px;">
+            <div class="user-block lh-1">
+                <h5 class="mb-0">{{ journey.user.name }}</h5>
+                <h6 class="text-secondary fw-lighter fs-5 mb-o blockquote">User description</h6>
+                <h6 class="text-secondary fw-lighter fs-6 mb-o blockquote-footer">{{ journey.start_date.strftime('%d %b %Y') }}</h6>
+            </div>
+        </div>
+
+        <!-- Journey Title and Description -->
+        <h5><strong>{{ journey.title }} </strong> {{ journey.description }}</h5>
+        
+        <!-- Events List -->
+        <div class="ms-1 mt-3">
+            <!-- <h4>Events ({{ journey.events|length }}):</h4> -->
+            <ul>
+            {% for event in journey.events %}
+                <h6>
+                    {{ event.title }}
+                    {% if event.location %} - {{ event.location }}{% endif %}
+                </h6>
+            {% else %}
+                <h6>No events recorded</h6>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% else %}
+    <p>No public journeys found</p>
+    {% endfor %}
+</div>
+{% endblock %}

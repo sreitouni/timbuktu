@@ -420,3 +420,28 @@ hr.border-primary {
 .custom-close img:hover {
   opacity: 1;
 }
+
+
+/* Journey Cards */
+.journey-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+  height: 100%;
+}
+
+.journey-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.event-card {
+  border-left: 3px solid #4CAF50;
+}
+
+/* Responsive Images */
+.card-img-top {
+  object-fit: cover;
+  height: 150px;
+}

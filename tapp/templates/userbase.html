@@ -124,6 +124,18 @@
 					</div>
 				</div>
 
+				<!-- Feeds -->
+				<div class="sidebar-icon-wrapper">
+					<div class="sidebar-icon mb-2 {% if request.path == '/journeys_feed' %}active{% endif %}">
+						<a href="{{ url_for('journeys_feed') }}" class="sidebar-link">
+							<img src="{{ url_for('static', filename='images/feed_gray.png') }}" class="icon icon-gray">
+							<img src="{{ url_for('static', filename='images/feed_blue.png') }}" class="icon icon-blue">
+						</a>
+						<span class="icon-label">Feeds</span>
+					</div>
+				</div>
+
+
 				<!-- User Management - Only visible to Admin roles. -->
 				{% if session['role'] == 'admin' %}
 				<div class="sidebar-icon-wrapper">

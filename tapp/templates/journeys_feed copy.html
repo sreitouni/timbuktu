@@ -1,0 +1,38 @@
+{% extends 'userbase.html' %}
+
+{% block title %}Feeds{% endblock %}
+
+{% block content %}
+<h2>Debug Output</h2>
+
+<!-- 1. First check if variable exists -->
+<p>Journeys feed exists? {{ journeys_feed is defined }}</p>
+
+<!-- 2. Show raw data count -->
+<p>Number of journeys: {{ journeys_feed|length }}</p>
+
+<!-- 3. Dump all data -->
+<pre>{{ journeys_feed }}</pre>
+
+<!-- 4. Basic loop -->
+{% for journey in journeys_feed %}
+<div style="border:1px solid #ccc; margin:10px; padding:10px;">
+    <h3>Journey: {{ journey.title }}</h3>
+    <p>By: {{ journey.user.name }} (ID: {{ journey.user.id }})</p>
+    
+    <h4>Events ({{ journey.events|length }}):</h4>
+    <ul>
+    {% for event in journey.events %}
+        <li>
+            {{ event.title }} 
+            {% if event.image %}(has image){% endif %}
+        </li>
+    {% else %}
+        <li>No events</li>
+    {% endfor %}
+    </ul>
+</div>
+{% else %}
+<p>No journeys found</p>
+{% endfor %}
+{% endblock %}

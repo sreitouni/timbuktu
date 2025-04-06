@@ -11,6 +11,7 @@ from tapp import user
 from tapp import manage
 from tapp import journeys
 from tapp import errors
+from tapp import journeys_feed
 # Set the "secret key" that our app will use to sign session cookies. This can
 # be anything.
 # 
