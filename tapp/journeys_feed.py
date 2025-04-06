@@ -22,11 +22,11 @@ def journeys_feed():
                     e.event_location,
                     e.event_image
                 FROM 
-                    timbuktu.journeys j
+                    journeys j
                 JOIN 
-                    timbuktu.users u ON j.user_id = u.user_id
+                    users u ON j.user_id = u.user_id
                 LEFT JOIN
-                    timbuktu.events e ON j.journey_id = e.journey_id
+                    events e ON j.journey_id = e.journey_id
                 WHERE 
                     j.status = 'public'
                 ORDER BY
