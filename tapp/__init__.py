@@ -1,20 +1,27 @@
-# This script runs automatically when our `journeyapp` module is first loaded,
-# and handles all the setup for our Flask app.
-# Include all modules that define our Flask route-handling functions.
 from flask import Flask
 
 app = Flask(__name__)
 app.secret_key = 'random-key'
 
-from tapp import connect
-from tapp import db
-db.init_db(app, connect.dbuser, connect.dbpass, connect.dbhost, connect.dbname)
+# Import connect directly without circular reference
+from tapp.connect import (
+    dbuser as connect_dbuser,
+    dbpass as connect_dbpass,
+    dbhost as connect_dbhost,
+    dbname as connect_dbname
+)
 
-# Include all modules that define our Flask route-handling functions.
-from tapp import user
-from tapp import manage
-from tapp import journeys
-from tapp import errors
-from tapp import journeys_feed
-from tapp import events
-from tapp import manage_users
+# Initialize database
+from tapp.db import init_db
+init_db(app, connect_dbuser, connect_dbpass, connect_dbhost, connect_dbname)
+
+# Import routes
+from tapp import (
+    user,
+    manage,
+    journeys,
+    errors,
+    journeys_feed,
+    events,
+    manage_users
+)
