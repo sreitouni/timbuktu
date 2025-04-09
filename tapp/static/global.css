@@ -220,6 +220,15 @@ hr.border-primary {
   opacity: 1 !important;
 }
 
+.photo-input-field {
+  background-color: var(--seashell);
+  font-size: small;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%; /* Stretch to fill the container */
+  height: 40px;
+}
+
 .label-captions {
   font-size: small;
   text-align: left;

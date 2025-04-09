@@ -26,118 +26,120 @@
     </div>
     {% endif %}
 
-    <form action="{{ url_for('profile') }}" method="POST" enctype="multipart/form-data">
-        <div class="row g-lg-0">
-            {% if update_successful %}
-                <div class="alert alert-success alert-dismissible fade show position-relative col-lg-5" role="alert">
-                <strong>Success!</strong> Your profile was successfully updated!
-                    <button 
-                        type="button" 
-                        style="background: none; border: none; color: inherit; font-size: 1.1rem; right: 8px; top: 6px;" 
-                        class="position-absolute p-0" 
-                        onclick="this.closest('.alert').remove();"
-                        aria-label="Close"
-                        >
-                        ✕
-                    </button>
-                </div>
-            {% endif %}
-            <!-- LEFT COLUMN - Form Fields -->
-            <div class="col-lg-8 order-lg-1 order-2">
+    <div class="col-12">
+        <form action="{{ url_for('profile') }}" method="POST" enctype="multipart/form-data">
+            <div class="row g-lg-0">
+                {% if update_successful %}
+                    <div class="alert alert-success alert-dismissible fade show position-relative col-lg-5" role="alert">
+                    <strong>Success!</strong> Your profile was successfully updated!
+                        <button 
+                            type="button" 
+                            style="background: none; border: none; color: inherit; font-size: 1.1rem; right: 8px; top: 6px;" 
+                            class="position-absolute p-0" 
+                            onclick="this.closest('.alert').remove();"
+                            aria-label="Close"
+                            >
+                            ✕
+                        </button>
+                    </div>
+                {% endif %}
+                <!-- LEFT COLUMN - Form Fields -->
+                <div class="col-lg-8 order-lg-1 order-2">
 
 
-                <div class="row my-3">
-                    <div class="col-lg-8">
-                        <label for="username" class="form-label">Username</label> 
-                        <input type="text" class="form-control{% if new_username_error %} is-invalid{% endif %}" id="username" name="username" value="{{ profile.username }}" required>
-                        <div class="invalid-feedback">{{ new_username_error }}</div>
-                    </div>
-                </div>
-                
-                <div class="row mb-3">
-                    <div class="col-lg-8">
-                        <label for="useremail" class="form-label">Email</label>
-                        <input type="text" class="form-control {% if new_email_error %} is-invalid{% endif %}" id="useremail" name="useremail" value="{{ profile.email }}" required>
-                        <input type="hidden" name="email_old" value="{{ profile.email }}">
-                        <div class="invalid-feedback">{{ new_email_error }}</div>
-                    </div>
-                </div>
-                
-                <div class="row mb-3">
-                    <div class="col-lg-8">
-                         <label for="first_name" class="form-label">First Name</label>
-                        <input type="text" class="form-control{% if new_first_name_error %} is-invalid{% endif %}" id="first_name" name="first_name" value="{{ profile. first_name}}" required>
-                        <div class="invalid-feedback">{{ new_first_name_error }}</div>
-                    </div>
-                </div>
-        
-                <div class="row mb-3">
-                    <div class="col-lg-8">
-                        <label for="last_name" class="form-label">Last Name</label>
-                        <input type="text" class="form-control{% if new_last_name_error %} is-invalid{% endif %}" id="last_name" name="last_name" value="{{ profile. last_name}}" required>
-                        <div class="invalid-feedback">{{ new_last_name_error }}</div>
-                    </div>
-                </div>
-        
-                <div class="row mb-3">
-                    <div class="col-lg-8">
-                        <label for="location" class="form-label">Location</label>
-                        <input type="text" class="form-control {% if new_location_error %} is-invalid{% endif %}" id="location" name="location" value="{{ profile. location}}"required>
-                        <div class="invalid-feedback">{{ new_location_error }}</div>
-                    </div>
-                </div>
-                
-                <div class="row mb-3">
-                    <div class="col-lg-8">
-                        <label for="role" class="form-label">Role</label>
-                        <input type="text" class="form-control" id="role" name="role" value="{{ profile. role}}" disabled>
-                    </div>
-                </div>   
-               
-
-                 <!-- Buttons -->
-                <div class="row justify-content-center justify-content-md-start mt-4">
-                    <div class="col-lg-8">
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary text-white ">Update Profile</button>
-                            <a href="{{ url_for('change_password') }}" class="btn btn-outline-secondary">
-                                Change Password
-                            </a>
+                    <div class="row my-3">
+                        <div class="col-lg-10">
+                            <label for="username" class="form-label">Username</label> 
+                            <input type="text" class="form-control{% if new_username_error %} is-invalid{% endif %}" id="username" name="username" value="{{ profile.username }}" required>
+                            <div class="invalid-feedback">{{ new_username_error }}</div>
                         </div>
                     </div>
-                </div>
-        
-            </div>
-
-            <!-- RIGHT COLUMN - Profile Image  -->
-            <div class="col-lg-4 order-lg-2 order-1">
-                <div class="my-3 text-center">
-                    <label for="profile_image" class="form-label"></label>
-                    {% set img_path = 'profile_images/' + (profile.profile_image if profile.profile_image else 'default.jpg') %}
-                    <img src="{{ url_for('static', filename=img_path) }}" 
-                         alt="Profile Image" 
-                         class="img-fluid mb-3 col-4 col-lg-10 rounded rounded-circle border border-2 border-secondary"
-                         style="width: 160px; height: 160px;">
                     
-                    {% if profile.profile_image %}
+                    <div class="row mb-3">
+                        <div class="col-lg-10">
+                            <label for="useremail" class="form-label">Email</label>
+                            <input type="text" class="form-control {% if new_email_error %} is-invalid{% endif %}" id="useremail" name="useremail" value="{{ profile.email }}" required>
+                            <input type="hidden" name="email_old" value="{{ profile.email }}">
+                            <div class="invalid-feedback">{{ new_email_error }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-lg-10">
+                            <label for="first_name" class="form-label">First Name</label>
+                            <input type="text" class="form-control{% if new_first_name_error %} is-invalid{% endif %}" id="first_name" name="first_name" value="{{ profile. first_name}}" required>
+                            <div class="invalid-feedback">{{ new_first_name_error }}</div>
+                        </div>
+                    </div>
+            
+                    <div class="row mb-3">
+                        <div class="col-lg-10">
+                            <label for="last_name" class="form-label">Last Name</label>
+                            <input type="text" class="form-control{% if new_last_name_error %} is-invalid{% endif %}" id="last_name" name="last_name" value="{{ profile. last_name}}" required>
+                            <div class="invalid-feedback">{{ new_last_name_error }}</div>
+                        </div>
+                    </div>
+            
+                    <div class="row mb-3">
+                        <div class="col-lg-10">
+                            <label for="location" class="form-label">Location</label>
+                            <input type="text" class="form-control {% if new_location_error %} is-invalid{% endif %}" id="location" name="location" value="{{ profile. location}}"required>
+                            <div class="invalid-feedback">{{ new_location_error }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-lg-10">
+                            <label for="role" class="form-label">Role</label>
+                            <input type="text" class="form-control" id="role" name="role" value="{{ profile. role}}" disabled>
+                        </div>
+                    </div>   
+                
+
+                    <!-- Buttons -->
+                    <div class="row justify-content-center justify-content-md-start mt-4">
+                        <div class="col-lg-10">
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary text-white ">Update Profile</button>
+                                <a href="{{ url_for('change_password') }}" class="btn btn-outline-secondary">
+                                    Change Password
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+            
+                </div>
+
+                <!-- RIGHT COLUMN - Profile Image  -->
+                <div class="col-lg-4 order-lg-2 order-1">
+                    <div class="my-3 text-center">
+                        <label for="profile_image" class="form-label"></label>
+                        {% set img_path = 'profile_images/' + (profile.profile_image if profile.profile_image else 'default.jpg') %}
+                        <img src="{{ url_for('static', filename=img_path) }}" 
+                            alt="Profile Image" 
+                            class="img-fluid mb-3 col-4 col-lg-10 rounded rounded-circle"
+                            style="width: 160px; height: 160px;">
                         
-                    {% else %}
-                        <div class="mb-3 text-muted">
-                            <p class="label-captions">Default profile image</p>
-                        </div>
-                    {% endif %}
-                    
-                    <input type="file" class="form-control" id="profile_image" name="profile_image" accept="image/*">
+                        {% if profile.profile_image %}
+                            
+                        {% else %}
+                            <div class="mb-3 text-muted">
+                                <p class="label-captions">Default profile image</p>
+                            </div>
+                        {% endif %}
+                        
+                        <input type="file" class="photo-input-field" id="profile_image" name="profile_image" accept="image/*">
+                    </div>
                 </div>
             </div>
-        </div>
-       
-    </form>
+        
+        </form>
+    </div>
     <!-- SEPARATE DELETE FORM (placed after main form, not nested) -->
     {% if profile.profile_image %}
-    <div class="col-lg-8 order-lg-1 order-2">
+    <div class="col-lg-9 order-lg-1 order-2">
         <div class="row justify-content-center justify-content-md-start mt-2">
-            <div class="col-lg-8">
+            <div class="col-lg-9">
                 <div class="d-grid gap-2">
                     <form action="{{ url_for('drop_profile_image') }}" method="POST" style="display: contents;" class="">
                         <button type="button" 
@@ -147,11 +149,13 @@
                                 >
                                 Delete Profile Image
                         </button>
+                        <!-- Cancel button -->
+                        <a href="{{ url_for('profile') }}" class="btn btn-secondary">
+                            Cancel
+                        </a>
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
 
     {% endif %}
 </section>
