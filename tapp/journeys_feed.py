@@ -36,7 +36,7 @@ def journeys_feed():
             """
     with db.get_cursor() as cursor:
         cursor.execute(query)
-        rows = cursor.fetchall()
+        rows = cursor.fetchall() # Retrieves all results as a list of dictionaries (the cursor is configured in db.py to return dicts).
 
     # Group events by journey_id/journey_title
     journeys_feed = {}
@@ -67,5 +67,5 @@ def journeys_feed():
                 'image': row['event_image']
             })
     
-    return render_template('journeys_feed.html', journeys_feed=list(journeys_feed.values()))
+    return render_template('journeys_feed.html', journeys_feed=list(journeys_feed.values())) # convert to lists so that Jinja can loop over
     
