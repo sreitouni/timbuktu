@@ -34,7 +34,7 @@ def journeys_feed():
                     events e ON j.journey_id = e.journey_id
                 WHERE 
                     j.status = 'public'
-                    OR j.user_id = %(current_user_id)s                
+                    OR j.user_id = %(current_user_id)s  <!-- Show private journeys to owner -->
                 ORDER BY
                     j.journey_id, e.event_id
                 ;
@@ -60,7 +60,7 @@ def journeys_feed():
                 'title': row['journey_title'],
                 'description': row['journey_description'],
                 'start_date': row['journey_start_date'],
-                'status':row['journey_status'],
+                'status': row['journey_status'],
                 'events': []
             }
         

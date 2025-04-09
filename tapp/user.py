@@ -279,17 +279,7 @@ def logout():
     session.clear()  # Clear all session data
     return redirect(url_for('login'))
 
-# @app.before_request
-# def load_user_profile():
-#     if 'loggedin' in session:
-#         g.profile = {
-#             'user_id': session['user_id'],
-#             'username': session['username'],
-#             'role': session['role'],
-#             'profile_image': session.get('profile_image')  # Using .get() in case it's missing
-#         }
-#     else:
-#         g.profile = None
+
 
 @app.before_request
 def load_user_profile():
